@@ -17,6 +17,8 @@ export function SignIn() {
 
   function handleSignIn() {
     console.log(email, password)
+
+    navigation.navigate()
   }
 
   return (

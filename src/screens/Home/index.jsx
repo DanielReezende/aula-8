@@ -23,6 +23,7 @@ import { Order } from "../../components/Order";
 import { Button } from "../../components/Button";
 
 
+
 export function Home() {
   const [statusSelected, setStatusSelected] = useState("open");
   const [orders, setOrders] = useState([
@@ -33,12 +34,13 @@ export function Home() {
       status: 'open',
     }
   ]);
-  // const navigation = useNavigation()
+  const navigation = useNavigation();
+
 
   const { colors } = useTheme();
 
   function handleNewOrder() {
-    // navigation.navigate("register");
+    navigation.navigate("register");
   }
 
   return (

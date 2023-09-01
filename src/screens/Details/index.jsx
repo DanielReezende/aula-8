@@ -5,7 +5,7 @@ import { Header } from '../../components/Header';
 export function Details() {
   return (
     <VStack flex={1} bg="gray.700">
-      <Header title="Solicitação" />
+      <Header title="Detalhes da Solicitação" />
     </VStack>
   );
 }

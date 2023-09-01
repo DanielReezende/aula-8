@@ -10,6 +10,8 @@ export function Header({ title, ...rest }) {
   const navigation = useNavigation();
 
   function handleGoBack() {
+    console.log("Go back");
+
     navigation.goBack()
   }
 
