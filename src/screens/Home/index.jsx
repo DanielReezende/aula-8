@@ -10,6 +10,7 @@ import {
   Center,
 } from "native-base";
 import { useNavigation } from "@react-navigation/native";
+import auth from '@react-native-firebase/auth'
 
 // Assets
 import Logo from "../../assets/logo_secondary.svg";
@@ -21,6 +22,7 @@ import { ChatTeardropText, SignOut } from "phosphor-react-native";
 import { Filter } from "../../components/Filter";
 import { Order } from "../../components/Order";
 import { Button } from "../../components/Button";
+import { Alert } from "react-native";
 
 
 
@@ -43,6 +45,18 @@ export function Home() {
     navigation.navigate("register");
   }
 
+  function handleOpenDetails(orderId) {
+    navigation.navigate("details", { orderId });
+  }
+
+  function handleUserLogout() {
+    auth().signOut().catch(error => {
+      console.log(error);
+
+      return Alert.alert('Sair', 'Não foi possível sair.')
+    });
+  }
+
   return (
     <VStack flex={1} pb={6} bg="gray.700">
       <HStack
@@ -56,7 +70,7 @@ export function Home() {
       >
         <Logo />
 
-        <IconButton icon={<SignOut size={26} color={colors.gray[300]} />} />
+        <IconButton icon={<SignOut size={26} color={colors.gray[300]} />} onPress={handleUserLogout}/>
       </HStack>
 
       <VStack flex={1} px={6}>
@@ -72,8 +86,8 @@ export function Home() {
                 justifyContent="space-between"
                 alignItems="center"
               >
-                <Heading color="gray.100">Meus Chamados</Heading>
-                <Text color="gray.200">3</Text>
+                <Heading color="gray.100">Solicitações</Heading>
+                <Text color="gray.200">{orders.length}</Text>
               </HStack>
 
               <HStack space={3} mb={8}>
@@ -93,7 +107,9 @@ export function Home() {
             </>
           )}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Order data={item} />}
+          renderItem={({ item }) => (
+            <Order data={item} onPress={() => handleOpenDetails(item.id)} />
+          )}
           contentContainerStyle={{ paddingBottom: 25 }}
           ListEmptyComponent={() => (
             <Center>
